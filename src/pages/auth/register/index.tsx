@@ -1,11 +1,11 @@
-import Register from "@/components/views/Register";
-import AuthLayouts from "@/components/layouts/AuthLayouts";
+import Register from "@/components/views/Auth/Register";
+import AuthLayout from "@/components/layouts/AuthLayout";
 
 const RegisterPage = () => {
   return (
-    <AuthLayouts title="Eventsin | Register">
+    <AuthLayout title="Eventsin | Register">
       <Register />
-    </AuthLayouts>
+    </AuthLayout>
   );
 };
 

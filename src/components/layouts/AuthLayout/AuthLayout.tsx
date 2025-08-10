@@ -2,12 +2,12 @@ import PageHead from "@/components/commons/PageHead";
 import { ReactNode } from "react";
 
 interface PropsTypes {
-  title: string;
   children: ReactNode;
+  title: string;
 }
 
-const AuthLayouts = (props: PropsTypes) => {
-  const { title, children } = props;
+const AuthLayout = (props: PropsTypes) => {
+  const { children, title } = props;
   return (
     <>
       <PageHead title={title} />
@@ -18,4 +18,4 @@ const AuthLayouts = (props: PropsTypes) => {
   );
 };
 
-export default AuthLayouts;
+export default AuthLayout;
