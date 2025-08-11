@@ -12,7 +12,7 @@ const headers = {
 };
 
 const instance = axios.create({
-  baseURL: environment.API_URl,
+  baseURL: environment.API_URL,
   headers,
   timeout: 60 * 1000,
 });
@@ -27,7 +27,7 @@ instance.interceptors.request.use(
   },
   (error) => {
     Promise.reject(error);
-  }
+  },
 );
 
 instance.interceptors.response.use(
@@ -36,7 +36,7 @@ instance.interceptors.response.use(
   },
   (error) => {
     Promise.reject(error);
-  }
+  },
 );
 
 export default instance;
