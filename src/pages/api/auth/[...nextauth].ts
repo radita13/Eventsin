@@ -8,7 +8,7 @@ export default NextAuth({
     strategy: "jwt",
     maxAge: 60 * 60 * 24, // 1 day
   },
-  secret: environment.AUTH_URL,
+  secret: environment.AUTH_SECRET,
   providers: [
     CredentialsProvider({
       id: "credentials",
