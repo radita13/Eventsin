@@ -19,7 +19,7 @@ const useLogin = () => {
     setIsVisible(!isVisible);
   };
 
-  const callbackURL: string = (router.query.callbackURL as string) || "/";
+  const callbackURL: string = (router.query.callbackUrl as string) || "/";
 
   // handler login form
   const {
