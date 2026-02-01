@@ -11,8 +11,8 @@ import { useCallback, Key, ReactNode, useEffect } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import { useRouter } from "next/router";
 import { COLUMN_LIST_CATEGORY } from "./Category.constants";
-import { LIMIT_LISTS } from "@/components/constants/list.constants";
 import useCategory from "./useCategory";
+import InputFile from "@/components/ui/InputFile";
 
 const Category = () => {
   const { push, isReady, query } = useRouter();
@@ -96,6 +96,8 @@ const Category = () => {
           totalPages={dataCategory?.pagination.totalPages}
         />
       )}
+
+      <InputFile name="input" isDropable />
     </section>
   );
 };
