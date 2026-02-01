@@ -1,6 +1,13 @@
 import { cn } from "@/utils/cn";
 import Image from "next/image";
-import { ChangeEvent, useEffect, useId, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import { CiSaveUp2 } from "react-icons/ci";
 
 interface PropsTypes {
@@ -15,17 +22,20 @@ const InputFile = (props: PropsTypes) => {
   const drop = useRef<HTMLLabelElement>(null);
   const dropzoneId = useId();
 
-  const handleDragOver = (e: DragEvent) => {
-    if (isDropable) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
+  const handleDragOver = useCallback(
+    (e: DragEvent) => {
+      if (isDropable) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    },
+    [isDropable],
+  );
 
-  const handleDrop = (e: DragEvent) => {
+  const handleDrop = useCallback((e: DragEvent) => {
     e.preventDefault();
     setUploadedImage(e.dataTransfer?.files?.[0] || null);
-  };
+  }, []);
 
   useEffect(() => {
     const dropCurrent = drop.current;
@@ -38,7 +48,7 @@ const InputFile = (props: PropsTypes) => {
       dropCurrent?.removeEventListener("dragover", handleDragOver);
       dropCurrent?.removeEventListener("drop", handleDrop);
     };
-  }, []);
+  }, [isDropable, handleDragOver, handleDrop]);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
