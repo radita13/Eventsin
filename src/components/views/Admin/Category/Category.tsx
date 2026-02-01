@@ -7,23 +7,44 @@ import {
   DropdownTrigger,
 } from "@heroui/react";
 import Image from "next/image";
-import { useCallback, Key, ReactNode } from "react";
+import { useCallback, Key, ReactNode, useEffect } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import { useRouter } from "next/router";
 import { COLUMN_LIST_CATEGORY } from "./Category.constants";
 import { LIMIT_LISTS } from "@/components/constants/list.constants";
+import useCategory from "./useCategory";
 
 const Category = () => {
-  const { push } = useRouter();
+  const { push, isReady, query } = useRouter();
+  const {
+    dataCategory,
+    isLoadingCategory,
+    isRefetchingCategory,
+
+    currentLimit,
+    currentPage,
+    setURL,
+    handleChangeLimit,
+    handleChangePage,
+    handleClearSearch,
+    handleSearch,
+  } = useCategory();
+
+  useEffect(() => {
+    if (isReady) {
+      setURL();
+    }
+  }, [isReady]);
+
   const renderCell = useCallback(
     (category: Record<string, unknown>, columnKey: Key) => {
       const cellValue = category[columnKey as keyof typeof category];
 
       switch (columnKey) {
-        case "icon":
-          return (
-            <Image src={`${cellValue}`} alt="icon" width={100} height={100} />
-          );
+        // case "icon":
+        //   return (
+        //     <Image src={`${cellValue}`} alt="icon" width={100} height={100} />
+        //   );
         case "actions":
           return (
             <Dropdown>
@@ -57,53 +78,24 @@ const Category = () => {
 
   return (
     <section>
-      <DataTable
-        buttonTopContentLabel="Create Category"
-        columns={COLUMN_LIST_CATEGORY}
-        currentPage={1}
-        data={[
-          {
-            _id: "1",
-            name: "Category 1",
-            description: "Description 1",
-            icon: "/images/general/logo.svg",
-          },
-          {
-            _id: "2",
-            name: "Category 2",
-            description: "Description 2",
-            icon: "/images/general/logo.svg",
-          },
-          {
-            _id: "3",
-            name: "Category 3",
-            description: "Description 3",
-            icon: "/images/general/logo.svg",
-          },
-          {
-            _id: "4",
-            name: "Category 4",
-            description: "Description 4",
-            icon: "/images/general/logo.svg",
-          },
-          {
-            _id: "5",
-            name: "Category 5",
-            description: "Description 5",
-            icon: "/images/general/logo.svg",
-          },
-        ]}
-        emptyContent="Category is empty"
-        limit={LIMIT_LISTS[0].label}
-        onChangeLimit={() => {}}
-        onChangePage={() => {}}
-        onChangeSearch={() => {}}
-        onClearSearch={() => {}}
-        onClickButtonTopContent={() => {}}
-        renderCell={renderCell}
-        totalPages={2}
-        isLoading
-      />
+      {Object.keys(query).length > 0 && (
+        <DataTable
+          buttonTopContentLabel="Create Category"
+          columns={COLUMN_LIST_CATEGORY}
+          currentPage={Number(currentPage)}
+          data={dataCategory?.data || []}
+          emptyContent="Category is empty"
+          isLoading={isLoadingCategory || isRefetchingCategory}
+          limit={String(currentLimit)}
+          onChangeLimit={handleChangeLimit}
+          onChangePage={handleChangePage}
+          onChangeSearch={handleSearch}
+          onClearSearch={handleClearSearch}
+          onClickButtonTopContent={() => {}}
+          renderCell={renderCell}
+          totalPages={dataCategory?.pagination.totalPages}
+        />
+      )}
     </section>
   );
 };
