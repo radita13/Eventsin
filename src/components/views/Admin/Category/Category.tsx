@@ -11,6 +11,7 @@ import { useCallback, Key, ReactNode } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import { useRouter } from "next/router";
 import { COLUMN_LIST_CATEGORY } from "./Category.constants";
+import { LIMIT_LISTS } from "@/components/constants/list.constants";
 
 const Category = () => {
   const { push } = useRouter();
@@ -57,8 +58,9 @@ const Category = () => {
   return (
     <section>
       <DataTable
-        renderCell={renderCell}
+        buttonTopContentLabel="Create Category"
         columns={COLUMN_LIST_CATEGORY}
+        currentPage={1}
         data={[
           {
             _id: "1",
@@ -91,6 +93,16 @@ const Category = () => {
             icon: "/images/general/logo.svg",
           },
         ]}
+        emptyContent="Category is empty"
+        limit={LIMIT_LISTS[0].label}
+        onChangeLimit={() => {}}
+        onChangePage={() => {}}
+        onChangeSearch={() => {}}
+        onClearSearch={() => {}}
+        onClickButtonTopContent={() => {}}
+        renderCell={renderCell}
+        totalPages={2}
+        isLoading
       />
     </section>
   );
