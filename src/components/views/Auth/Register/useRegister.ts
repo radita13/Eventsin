@@ -6,6 +6,7 @@ import { IRegister } from "@/types/Auth";
 import authServices from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { toast } from "@/components/ui/Toaster";
 
 const registerSchema = yup.object().shape({
   fullName: yup.string().required("Please input your fullname"),
@@ -45,7 +46,6 @@ const useRegister = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    setError,
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
@@ -58,9 +58,10 @@ const useRegister = () => {
   const { mutate: mutateRegister, isPending: isPendingRegister } = useMutation({
     mutationFn: registerServices,
     onError: (error) => {
-      setError("root", { message: error.message });
+      toast.error("Registration Failed", error.message);
     },
     onSuccess: () => {
+      toast.success("Registration Success", "Account has been created successfully.");
       router.push("/auth/register/success");
       reset();
     },

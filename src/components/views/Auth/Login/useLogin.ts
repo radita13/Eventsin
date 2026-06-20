@@ -6,6 +6,7 @@ import { ILogin } from "@/types/Auth";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
+import { toast } from "@/components/ui/Toaster";
 
 const loginSchema = yup.object().shape({
   identifire: yup.string().required("Please input your email / username"),
@@ -27,7 +28,6 @@ const useLogin = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    setError,
   } = useForm({
     resolver: yupResolver(loginSchema),
   });
@@ -45,12 +45,13 @@ const useLogin = () => {
 
   const { mutate: mutateLogin, isPending: isPendingLogin } = useMutation({
     mutationFn: loginServices,
-    onError: (error) => {
-      setError("root", { message: error.message });
+    onError: () => {
+      toast.error("Login Failed", "Email or password wrong.");
     },
     onSuccess: () => {
-      router.push(callbackURL);
       reset();
+      toast.success("Login Success", "Welcome back!");
+      router.push(callbackURL);
     },
   });
 
