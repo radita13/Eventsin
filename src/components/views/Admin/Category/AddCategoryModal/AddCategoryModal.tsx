@@ -14,14 +14,14 @@ import { Controller } from "react-hook-form";
 import InputFile from "@/components/ui/InputFile";
 import { useEffect } from "react";
 
-interface PropsType {
+interface PropsTypes {
   isOpen: boolean;
   onClose: () => void;
   onOpenChange: () => void;
   refetchCategory: () => void;
 }
 
-const AddCategoryModal = (props: PropsType) => {
+const AddCategoryModal = (props: PropsTypes) => {
   const { isOpen, onClose, onOpenChange, refetchCategory } = props;
   const {
     control,
