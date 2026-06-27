@@ -11,7 +11,7 @@ interface PropsTypes {
   isDeleting?: boolean;
   isUploading?: boolean;
   isInvalid?: boolean;
-  label: ReactNode;
+  label?: ReactNode;
   name: string;
   onUpload?: (file: FileList) => void;
   onDelete?: () => void;
