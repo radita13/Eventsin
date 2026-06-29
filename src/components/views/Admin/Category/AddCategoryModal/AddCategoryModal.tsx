@@ -77,6 +77,7 @@ const AddCategoryModal = (props: PropsTypes) => {
                     type="text"
                     isInvalid={errors.name !== undefined}
                     errorMessage={errors.name?.message}
+                    className="mb-2"
                   />
                 )}
               />
