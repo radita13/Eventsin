@@ -18,8 +18,6 @@ const Login = () => {
     isPendingLogin,
   } = useLogin();
 
-  console.log(errors);
-
   return (
     <div className="flex w-full flex-col items-center justify-center gap-10 lg:flex-row lg:gap-20">
       <div className="flex w-full flex-col items-center justify-center gap-10 lg:w-1/3">
@@ -41,7 +39,7 @@ const Login = () => {
         <Card>
           <CardBody className="p-8">
             <h2 className="text-primary text-2xl font-bold">Login</h2>
-            <p className="text-small mb-4 mt-2">
+            <p className="text-small mt-2 mb-4">
               Don{"'"}t have account ?&nbsp;
               <Link
                 href="/auth/register"
