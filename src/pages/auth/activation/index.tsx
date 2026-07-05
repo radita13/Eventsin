@@ -31,7 +31,6 @@ export async function getServerSideProps(context: { query: { code: string } }) {
       };
     }
   } catch (error) {
-    console.error(error);
     return {
       props: {
         status: "failed",
