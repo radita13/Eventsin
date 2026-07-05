@@ -10,12 +10,12 @@ import {
 } from "@heroui/react";
 import Image from "next/image";
 import { useCallback, Key, ReactNode, useEffect } from "react";
-import { CiMenuKebab } from "react-icons/ci";
 import { useRouter } from "next/router";
 import { COLUMN_LIST_EVENT } from "./Event.constants";
 import useEvent from "./useEvent";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import DropdownAction from "@/components/commons/DropdownAction";
+import AddEventModal from "./AddEventModal";
 
 const Category = () => {
   const { push, isReady, query } = useRouter();
@@ -45,15 +45,17 @@ const Category = () => {
       const cellValue = event[columnKey as keyof typeof event];
 
       switch (columnKey) {
-        case "benner":
-          return (
+        case "banner":
+          return cellValue ? (
             <Image
               className="aspect-video w-36 rounded-lg object-cover"
               src={`${cellValue}`}
-              alt="benner"
+              alt="banner"
               width={200}
               height={100}
             />
+          ) : (
+            <div className="bg-default-200 aspect-video w-36 rounded-lg object-cover" />
           );
         case "isPublish":
           return (
@@ -97,6 +99,8 @@ const Category = () => {
           totalPages={dataEvents?.pagination.totalPages}
         />
       )}
+
+      <AddEventModal {...addEventModal} refetchEvents={refetchEvents} />
     </section>
   );
 };
