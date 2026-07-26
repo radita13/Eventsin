@@ -1,4 +1,3 @@
-import { ICategory } from "@/types/Category";
 import {
   Autocomplete,
   AutocompleteItem,
@@ -6,13 +5,11 @@ import {
   Card,
   CardBody,
   CardHeader,
-  DatePicker,
   Input,
   Select,
   SelectItem,
   Skeleton,
   Spinner,
-  Textarea,
 } from "@heroui/react";
 import { Controller } from "react-hook-form";
 import useLocationTab from "./useLocationTab";
@@ -52,6 +49,7 @@ const LocationTab = (props: PropsTypes) => {
   useEffect(() => {
     if (dataEvent) {
       setValueUpdateLocation("isOnline", `${dataEvent?.isOnline}`);
+      setValueUpdateLocation("address", `${dataEvent?.location?.address}`);
       setValueUpdateLocation("region", `${dataEvent?.location?.region}`);
       setValueUpdateLocation(
         "latitude",
@@ -82,6 +80,26 @@ const LocationTab = (props: PropsTypes) => {
           className="flex flex-col gap-4"
           onSubmit={handleSubmitUpdateLocation(onUpdate)}
         >
+          <Skeleton
+            isLoaded={!!dataEvent?.location?.address}
+            className="rounded-lg"
+          >
+            <Controller
+              name="address"
+              control={controlUpdateLocation}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  label="Address"
+                  variant="bordered"
+                  labelPlacement="outside"
+                  type="text"
+                  isInvalid={errorsUpdateLocation.address !== undefined}
+                  errorMessage={errorsUpdateLocation.address?.message}
+                />
+              )}
+            />
+          </Skeleton>
           <Skeleton isLoaded={!!dataEvent} className="rounded-lg">
             <Controller
               name="isOnline"
