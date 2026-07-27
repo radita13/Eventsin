@@ -7,6 +7,7 @@ import { COLUMN_LIST_BANNER } from "./Banner.constants";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import DropdownAction from "@/components/commons/DropdownAction";
 import useBanner from "./useBanner";
+import AddBannerModal from "./AddBannerModal";
 
 const Banner = () => {
   const { push, isReady, query } = useRouter();
@@ -38,7 +39,13 @@ const Banner = () => {
       switch (columnKey) {
         case "image":
           return (
-            <Image src={`${cellValue}`} alt="image" width={300} height={100} />
+            <Image
+              src={`${cellValue}`}
+              alt="image"
+              width={300}
+              height={100}
+              className="rounded-lg"
+            />
           );
         case "isShow":
           return (
@@ -81,6 +88,8 @@ const Banner = () => {
           totalPages={dataBanners?.pagination.totalPages}
         />
       )}
+
+      <AddBannerModal {...addBannerModal} refetchBanners={refetchBanners} />
     </section>
   );
 };
