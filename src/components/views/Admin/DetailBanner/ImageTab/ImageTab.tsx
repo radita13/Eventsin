@@ -8,80 +8,82 @@ import {
   Spinner,
 } from "@heroui/react";
 import Image from "next/image";
-import useIconTab from "./useIconTab";
+import useImageTab from "./useImageTab";
 import { Controller } from "react-hook-form";
 import { useEffect } from "react";
-import { ICategory } from "@/types/Category";
+import { IBanner } from "@/types/Banner";
 
 interface PropsTypes {
-  currentIcon: string;
-  onUpdate: (data: ICategory) => void;
+  currentImage: string;
+  onUpdate: (data: IBanner) => void;
   isPendingUpdate: boolean;
   isSuccessUpdate: boolean;
 }
 
-const IconTab = (props: PropsTypes) => {
-  const { currentIcon, onUpdate, isPendingUpdate, isSuccessUpdate } = props;
+const ImageTab = (props: PropsTypes) => {
+  const { currentImage, onUpdate, isPendingUpdate, isSuccessUpdate } = props;
   const {
-    handleDeleteIcon,
-    handleUploadIcon,
+    handleDeleteImage,
+    handleUploadImage,
     isPendingMutateDeleteFile,
     isPendingMutateUploadFile,
 
-    controlUpdateIcon,
-    handleSubmitUpdateIcon,
-    errorsUpdateIcon,
-    resetUpdateIcon,
+    controlUpdateImage,
+    handleSubmitUpdateImage,
+    errorsUpdateImage,
+    resetUpdateImage,
 
     preview,
-  } = useIconTab();
+  } = useImageTab();
 
   useEffect(() => {
     if (isSuccessUpdate) {
-      resetUpdateIcon();
+      resetUpdateImage();
     }
   }, [isSuccessUpdate]);
 
   return (
     <Card className="w-full p-4 lg:w-1/2">
       <CardHeader className="flex-col items-center">
-        <h1 className="w-full text-xl font-bold">Category Icon</h1>
+        <h1 className="w-full text-xl font-bold">Banner Image</h1>
         <p className="text-small text-default-400 w-full">
-          Manage icon of this category
+          Manage Image of this banner
         </p>
       </CardHeader>
       <CardBody>
         <form
           className="flex flex-col gap-4"
-          onSubmit={handleSubmitUpdateIcon(onUpdate)}
+          onSubmit={handleSubmitUpdateImage(onUpdate)}
         >
           <div className="flex flex-col gap-2">
             <p className="text-small text-default-700 font-medium">
-              Current Icon
+              Current Image
             </p>
-            <Skeleton
-              isLoaded={!!currentIcon}
-              className="aspect-square rounded-lg"
-            >
-              <Image src={currentIcon} alt="icon" fill className="relative!" />
+            <Skeleton isLoaded={!!currentImage} className="h-32 rounded-lg">
+              <Image
+                src={currentImage}
+                alt="image"
+                fill
+                className="relative! rounded-lg"
+              />
             </Skeleton>
           </div>
           <Controller
-            name="icon"
-            control={controlUpdateIcon}
+            name="image"
+            control={controlUpdateImage}
             render={({ field: { onChange, value, ...field } }) => (
               <InputFile
                 {...field}
-                onDelete={() => handleDeleteIcon(onChange)}
-                onUpload={(files) => handleUploadIcon(files, onChange)}
+                onDelete={() => handleDeleteImage(onChange)}
+                onUpload={(files) => handleUploadImage(files, onChange)}
                 isUploading={isPendingMutateUploadFile}
                 isDeleting={isPendingMutateDeleteFile}
-                isInvalid={errorsUpdateIcon.icon !== undefined}
-                errorMessage={errorsUpdateIcon.icon?.message}
+                isInvalid={errorsUpdateImage.image !== undefined}
+                errorMessage={errorsUpdateImage.image?.message}
                 isDropable
                 label={
                   <p className="text-default-700 mb-2 text-sm font-medium">
-                    Upload New Icon
+                    Upload New Image
                   </p>
                 }
                 preview={typeof preview === "string" ? preview : ""}
@@ -106,4 +108,4 @@ const IconTab = (props: PropsTypes) => {
   );
 };
 
-export default IconTab;
+export default ImageTab;
