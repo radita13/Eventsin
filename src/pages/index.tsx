@@ -1,9 +1,12 @@
-import PageHead from "@/components/commons/PageHead";
+import LandingPageLayout from "@/components/layouts/LandingPageLayout/LandingPageLayout";
+import Home from "@/components/views/Home";
 
-export default function Home() {
+const HomePage = () => {
   return (
-    <div>
-      <PageHead />
-    </div>
+    <LandingPageLayout title="Home">
+      <Home />
+    </LandingPageLayout>
   );
-}
+};
+
+export default HomePage;

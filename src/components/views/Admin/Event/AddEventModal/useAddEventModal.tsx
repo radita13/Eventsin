@@ -55,9 +55,6 @@ const useAddEventModal = () => {
   const preview = watch("banner");
   const fileUrl = getValues("banner");
 
-  setValue("startDate", now(getLocalTimeZone()));
-  setValue("endDate", now(getLocalTimeZone()));
-
   const handleUploadBanner = (
     files: FileList,
     onChange: (files: FileList | undefined) => void,
@@ -123,8 +120,8 @@ const useAddEventModal = () => {
   const handleAddEvent = (data: IEventForm) => {
     const payload = {
       ...data,
-      startDate: data.startDate ? toDateStandard(data.startDate) : "",
-      endDate: data.endDate ? toDateStandard(data.endDate) : "",
+      startDate: toDateStandard(data.startDate as DateValue),
+      endDate: toDateStandard(data.endDate as DateValue),
       location: {
         address: `${data.address}`,
         region: `${data.region}`,
@@ -142,6 +139,7 @@ const useAddEventModal = () => {
     handleAddEvent,
     isPendingMutateAddEvent,
     isSuccessMutateAddEvent,
+    setValue,
 
     preview,
     handleUploadBanner,

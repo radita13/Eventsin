@@ -30,9 +30,7 @@ instance.interceptors.response.use(
   async (response) => {
     return response;
   },
-  (error) => {
-    Promise.reject(error);
-  },
+  (error) => Promise.reject(error),
 );
 
 export default instance;
