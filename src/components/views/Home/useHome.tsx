@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const useHome = () => {
   const getBanners = async () => {
-    let params = `limit=${LIMIT_BANNER}&page=${PAGE_DEFAULT}`;
+    const params = `limit=${LIMIT_BANNER}&page=${PAGE_DEFAULT}`;
     const res = await bannerService.getBanners(params);
     const { data } = res;
     return data;
@@ -21,7 +21,7 @@ const useHome = () => {
   });
 
   const getCategories = async () => {
-    let params = `limit=${LIMIT_BANNER}&page=${PAGE_DEFAULT}`;
+    const params = `limit=${LIMIT_BANNER}&page=${PAGE_DEFAULT}`;
     const res = await categoryService.getCategories(params);
     const { data } = res;
     return data;
